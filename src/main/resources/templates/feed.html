@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head th:include="fragments/head">
+    <title id="title">Feed</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/navbar"></div>
+    <h2>Tweets</h2>
+    <ul class="nav nav-tabs">
+        <li role="presentation" th:classappend="${filter == 'all' ? 'active' : '' }"><a href="/tweets">All</a></li>
+        <li role="presentation" th:classappend="${filter == 'following' ? 'active' : '' }"><a
+                href="/tweets?filter=following">Following</a></li>
+    </ul>
+    <br/>
+    <div class="list-group" th:each="tweet:${tweetList}">
+        <div class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <a class="username" th:href="@{/users/} + ${tweet.user.username}"><h5>@<span
+                        th:text="${tweet.user.username}"></span></a>
+                <small th:text="${tweet.date}"></small></h5>
+            </div>
+            <p class="mb-1" th:utext="${tweet.message}"></p>
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(tweetList) and filter == 'all'}">
+        <h3>No tweets have been created yet</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <form th:action="@{/tweets/new}" method="get">
+                    <button class="btn btn-lg btn-success btn-block col-md-4" type="Submit">Create the first tweet!
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(tweetList) and filter == 'following'}">
+        <h3>No tweets have been created by your followers</h3>
+    </div>
+</div>
+</body>
+</html>
