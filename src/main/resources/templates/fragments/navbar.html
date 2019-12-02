@@ -1,4 +1,5 @@
-<nav class="row navbar navbar-inverse" xmlns:sec="http://www.w3.org/1999/xhtml">
+<nav class="row navbar navbar-inverse" xmlns:sec="http://www.w3.org/1999/xhtml"
+     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#" style="color: #00aced">
@@ -11,7 +12,7 @@
                 <li><a href="/tweets/users">Users</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li sec:authorize="isAuthenticated()"><a style="pointer-events: none;color: #00aced">
+                <li sec:authorize="isAuthenticated()"><a style="pointer-events: none;color: #00aced;">
                     @<span sec:authentication="name"></span></a>
                 <li sec:authorize="isAuthenticated()"><a href="../logout">Logout</a></li>
                 <li sec:authorize="!isAuthenticated()"><a href="../login">Login</a></li>
