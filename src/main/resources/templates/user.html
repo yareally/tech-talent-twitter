@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/navbar"></div>
+<h2>Profile for <span th:text="${user.firstName}"></span>
+    <span th:text="${user.lastName}"></span> - <span style="color: #00aced">
+@<span th:text="${user.username}"></span></span></h2>
+<h5>Joined <span th:text="${#dates.format(user.createdAt, 'MMMM dd, yyyy')}"></span></h5>
+
+<h3>Tweets</h3>
+<div th:if="${not #lists.isEmpty(tweetList)}" class="list-group" th:each="tweet:${tweetList}">
+    <div class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5>@<span th:text="${tweet.user.username}"></span>
+                <span th:text="${#dates.format(tweet.createdAt, 'M/d/yy')}"></span></h5>
+        </div>
+        <p class="mb-1" th:utext="${tweet.message}"></p>
+    </div>
+</div>
+
+<div th:if="${#lists.isEmpty(tweetList)}">
+    <h3>No Recent Tweets</h3>
+</div>
+</html>

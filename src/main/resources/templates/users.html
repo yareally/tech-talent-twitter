@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<div th:replace="fragments/navbar"></div>
+<div class="container">
+    <div th:replace="fragments/navbar"></div>
+    <h2>Users</h2>
+    <div class="list-group" th:each="user:${users}">
+        <a th:href="@{/users/{username}(username=${user.username})}" class="list-group-item list-group-item-action">
+            <div class="row">
+                <div class="col col-sm-6">
+                    <h5 class="mb-1" style="color: #00aced;"><i class="fab fa-twitter"></i> @<span
+                            th:text="${user.username}"></span></h5>
+                    <h5 class="mb-1"><span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span>
+                    </h5>
+                </div>
+                <div class="col col-sm-2 col-sm-offset-4 text-right">
+                    <h5 class="mb-1"><span th:text="${tweetCounts.get(user.username)}"></span> tweets</h5>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+</html>
