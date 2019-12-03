@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/head">
     <title id="title">Registration</title>
 </head>
@@ -10,7 +10,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div th:if="!${success}">
                 <h2>Sign up</h2>
-                <form th:action="@{/signup}" th:object="${user}" method="post" autocomplete="off">
+                <form th:action="@{/signup}" th:object="${user}" method="post">
                     <div class="form-group">
                         <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
                                class="validation-message"></label>

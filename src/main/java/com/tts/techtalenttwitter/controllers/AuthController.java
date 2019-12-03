@@ -30,12 +30,14 @@ public class AuthController {
         return "login";
     }
 
+    // https://twitter.com/signup
     @GetMapping(value = "/signup")
     public String registration(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "registration";
     }
+
 
     @PostMapping(value = "/signup")
     public String createNewUser(@Valid User user, BindingResult bindingResult, Model model) {
