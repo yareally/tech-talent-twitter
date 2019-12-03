@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:replace="fragments/navbar"></div>
+<form th:action="@{/follow/{username}(username=${user.username})}" th:if="${!following}" method="post">
+    <button style="float:right;" type="Submit" class="btn btn-lg btn-success">Follow</button>
+</form>
+
+<form th:action="@{/unfollow/{username}(username=${user.username})}" th:if="${following}" method="post">
+    <button style="float:right;" type="Submit" class="btn btn-lg btn-primary unfollow_btn">Following</button>
+</form>
+
 <h2>Profile for <span th:text="${user.firstName}"></span>
     <span th:text="${user.lastName}"></span> - <span style="color: #00aced">
 @<span th:text="${user.username}"></span></span></h2>

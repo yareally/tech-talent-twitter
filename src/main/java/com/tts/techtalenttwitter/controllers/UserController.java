@@ -4,7 +4,6 @@ import com.tts.techtalenttwitter.models.Tweet;
 import com.tts.techtalenttwitter.models.User;
 import com.tts.techtalenttwitter.services.TweetService;
 import com.tts.techtalenttwitter.services.UserService;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,12 +33,22 @@ public class UserController {
     @GetMapping(value = "/users/{username}")
     public String getUser(@PathVariable(value = "username") String username, Model model) {
         Optional<User> user = userService.findByUsername(username);
+        Optional<User> loggedInUser = userService.getLoggedInUser();
 
         if (user.isPresent()) {
             List<Tweet> tweets = tweetService.findAllByUser(user.get());
             model.addAttribute("tweetList", tweets);
             model.addAttribute("user", user);
         }
+        boolean isFollowing = false;
+
+        if (loggedInUser.isPresent()) {
+            List<User> following = loggedInUser.get().getFollowing();
+            isFollowing = following.stream().anyMatch(followedUser -> followedUser.getUsername().equals(username));
+            boolean isSelfPage = loggedInUser.get().getUsername().equals(username);
+            model.addAttribute("isSelfPage", isSelfPage);
+        }
+        model.addAttribute("following", isFollowing);
         return "user";
     }
 
